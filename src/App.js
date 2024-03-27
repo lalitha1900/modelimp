@@ -1,4 +1,4 @@
-import "./Stylet.css"
+import "./stylet.css"
 import React, { useState } from "react";
 
 const XModal = () => {
