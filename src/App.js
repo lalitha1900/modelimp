@@ -1,4 +1,4 @@
-
+import "./Stylet.css"
 import React, { useState } from "react";
 
 const XModal = () => {
@@ -16,7 +16,7 @@ const XModal = () => {
     phone: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e) => { 
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
