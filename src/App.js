@@ -94,7 +94,15 @@ const XModal = () => {
       alert("Form submitted successfully!");
     }
   };
-
+  document.addEventListener("mousedown", closePopup);
+  function closePopup(e) {
+    var container = document.getElementById("modal");
+    console.log(e, container);
+    if (container && !container.contains(e.target)) {
+      setIsOpen(false);
+      closeModal();
+    }
+  }
   const closeModal = () => {
     setIsOpen(false);
     setErrors({
@@ -107,9 +115,9 @@ const XModal = () => {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)}>Open Form</button>
+      <button onClick={(e) => setIsOpen(true)}>Open Form</button>
       {isOpen && (
-        <div className="modal" ref={modalRef}>
+        <div id="modal" className="modal" ref={modalRef}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Modal Form</h2>
             <form onSubmit={handleSubmit}>
