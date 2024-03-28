@@ -114,7 +114,7 @@ const XModal = () => {
   };
 
   return (
-    <div>
+    <div style={{ "text-align": "center" }}>
       <button onClick={(e) => setIsOpen(true)}>Open Form</button>
       {isOpen && (
         <div id="modal" className="modal" ref={modalRef}>
