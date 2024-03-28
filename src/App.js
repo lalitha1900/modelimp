@@ -1,5 +1,7 @@
-import "./styles.css"
-import React, { useState } from "react";
+import "./styles.css";
+
+import React, { useState, useRef, useEffect } from "react";
+import "./styles.css";
 
 const XModal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +18,27 @@ const XModal = () => {
     phone: "",
   });
 
-  const handleInputChange = (e) => { 
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
@@ -87,7 +109,7 @@ const XModal = () => {
     <div>
       <button onClick={() => setIsOpen(true)}>Open Form</button>
       {isOpen && (
-        <div className="modal" onClick={closeModal}>
+        <div className="modal" ref={modalRef}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Modal Form</h2>
             <form onSubmit={handleSubmit}>
